@@ -47,11 +47,15 @@ const TableBody = (props) => {
       {props.tasks.map((task) => (
         <tr key={task.id}>
           <td>
-            <input type="checkbox" />
+            <input type="checkbox" checked={task.done} />
           </td>
           <td>{task.description}</td>
           <td>{task.whenToDo}</td>
-          <td></td>
+          <td>
+            <input type="button" className="btn btn-primary" value="Editar" />
+            &nbsp;
+            <input type="button" className="btn btn-danger" value="Excluir" />
+          </td>
         </tr>
       ))}
     </tbody>
