@@ -51,7 +51,7 @@ class TaskForm extends Component {
 
     return (
       <div>
-        <h1>Cadastro da tarefas</h1>
+        <h1>Cadastro de tarefa</h1>
         <form onSubmit={this.onSubmitHandler}>
           <div className="form-group">
             <label htmlFor="description">Descrição</label>
@@ -78,7 +78,11 @@ class TaskForm extends Component {
           <button type="submit" className="btn btn-success mr-2">
             {this.state.buttonName}
           </button>
-          <button type="button" className="btn btn-danger">
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={() => this.setState({ redirect: true })}
+          >
             Cancelar
           </button>
         </form>
