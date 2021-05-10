@@ -16,7 +16,8 @@ class App extends Component {
           <NavBar />
           <div className="container" style={{ marginTop: 20 }}>
             <Switch>
-              <Route path="/form" component={TaskForm} />
+              <Route exact path="/form" component={TaskForm} />
+              <Route exact path="/form/:id" component={TaskForm} />
               <Route path="/" component={TaskListTable} />
             </Switch>
           </div>
