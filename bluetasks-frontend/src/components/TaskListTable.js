@@ -10,12 +10,12 @@ class TaskListTable extends Component {
     };
   }
 
-  componentDidMount() {
-    this.listTasks();
-  }
-
   listTasks() {
     this.setState({ tasks: TaskService.list() });
+  }
+
+  componentDidMount() {
+    this.listTasks();
   }
 
   render() {
