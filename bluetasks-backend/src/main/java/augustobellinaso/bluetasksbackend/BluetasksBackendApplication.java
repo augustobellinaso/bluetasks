@@ -1,6 +1,8 @@
 package augustobellinaso.bluetasksbackend;
 
 import augustobellinaso.bluetasksbackend.domain.task.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +16,11 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 @SpringBootApplication
 public class BluetasksBackendApplication implements RepositoryRestConfigurer {
 
+	private static final Logger logger = LoggerFactory.getLogger(BluetasksBackendApplication.class);
+
 	public static void main(String[] args) {
 		SpringApplication.run(BluetasksBackendApplication.class, args);
+		logger.info("Bluetasks in action");
 	}
 
 	@Override
@@ -33,5 +38,7 @@ public class BluetasksBackendApplication implements RepositoryRestConfigurer {
 		Validator validator = validator();
 		validatingListener.addValidator("beforeCreate", validator);
 		validatingListener.addValidator("beforeSave", validator);
+
+		logger.info("Configure validator... OK!");
 	}
 }
