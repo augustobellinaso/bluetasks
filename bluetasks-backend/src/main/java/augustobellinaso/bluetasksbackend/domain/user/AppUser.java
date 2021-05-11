@@ -22,7 +22,7 @@ public class AppUser {
 
     private String password;
 
-    private String displaName;
+    private String displayName;
 
     public AppUser() {
 
@@ -31,6 +31,6 @@ public class AppUser {
     public AppUser(String username, String password, String displaName) {
         this.username = username;
         this.password = password;
-        this.displaName = displaName;
+        this.displayName = displaName;
     }
 }
