@@ -1,6 +1,7 @@
 package augustobellinaso.bluetasksbackend.domain.task;
 
 import augustobellinaso.bluetasksbackend.domain.user.AppUser;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -34,6 +35,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "app_user_id")
     //@NotNull(message = "O usuário da tarefa é obrigatório")
+    @JsonIgnore
     private AppUser appUser;
 
     public Task() {
