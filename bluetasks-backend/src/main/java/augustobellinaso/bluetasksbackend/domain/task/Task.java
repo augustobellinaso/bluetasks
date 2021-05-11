@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
+@EntityListeners(TaskListener.class)
 public class Task {
 
     @Id
