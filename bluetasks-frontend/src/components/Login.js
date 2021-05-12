@@ -22,6 +22,7 @@ class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ processing: true });
     AuthService.login(
       this.state.username,
       this.state.password,
@@ -35,6 +36,8 @@ class Login extends Component {
     } else {
       this.setState({ alert: "O login não pode ser realizado" });
     }
+
+    this.setState({ processing: false });
   }
 
   handleInputChanged(event) {
