@@ -3,8 +3,9 @@ import TaskService from "../api/TaskService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router-dom";
-import Alert from "./Alert";
 import AuthService from "../api/AuthService";
+import Spinner from "./Spinner";
+//import { Spinner } from "react-bootstrap";
 
 class TaskListTable extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class TaskListTable extends Component {
     this.state = {
       tasks: [],
       editId: 0,
+      loading: true,
     };
 
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
@@ -59,21 +61,24 @@ class TaskListTable extends Component {
 
     return (
       <>
-        <Alert message="Erro" />
-        <table className="table table-striped">
-          <TableHeader />
+        {this.state.loading ? (
+          <Spinner />
+        ) : (
+          <table className="table table-striped">
+            <TableHeader />
 
-          {this.state.tasks.length > 0 ? (
-            <TableBody
-              tasks={this.state.tasks}
-              onDelete={this.onDeleteHandler}
-              onStatusChange={this.onStatusChangeHandler}
-              onEdit={this.onEditHandler}
-            />
-          ) : (
-            <EmptyTableBody />
-          )}
-        </table>
+            {this.state.tasks.length > 0 ? (
+              <TableBody
+                tasks={this.state.tasks}
+                onDelete={this.onDeleteHandler}
+                onStatusChange={this.onStatusChangeHandler}
+                onEdit={this.onEditHandler}
+              />
+            ) : (
+              <EmptyTableBody />
+            )}
+          </table>
+        )}
         <ToastContainer autoClose={2000} />
       </>
     );
