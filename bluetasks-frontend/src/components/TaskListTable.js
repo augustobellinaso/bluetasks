@@ -3,6 +3,7 @@ import TaskService from "../api/TaskService";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router-dom";
+import Alert from "./Alert";
 
 class TaskListTable extends Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class TaskListTable extends Component {
 
     return (
       <>
+        <Alert message="Erro" />
         <table className="table table-striped">
           <TableHeader />
 
