@@ -1,6 +1,7 @@
 package augustobellinaso.bluetasksbackend.infrastructure.web.security;
 
 import io.jsonwebtoken.Jwts;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -12,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 

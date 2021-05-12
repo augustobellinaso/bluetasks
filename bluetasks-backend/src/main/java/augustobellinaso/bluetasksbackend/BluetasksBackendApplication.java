@@ -28,7 +28,7 @@ public class BluetasksBackendApplication implements RepositoryRestConfigurer {
 		config.exposeIdsFor(Task.class);
 		cors.addMapping("/**")
 				.allowedOrigins("*")
-				.allowedMethods("GET", "POST", "PUT", "DELETE");
+				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
 
 		logger.info("Repository CORS setup...OK!");
 	}
