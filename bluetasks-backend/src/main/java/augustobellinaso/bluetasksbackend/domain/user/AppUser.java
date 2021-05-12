@@ -32,9 +32,9 @@ public class AppUser {
 
     }
 
-    public AppUser(String username, String password, String displaName) {
+    public AppUser(String username, String password, String displayName) {
         this.username = username;
         this.password = password;
-        this.displayName = displaName;
+        this.displayName = displayName;
     }
 }
