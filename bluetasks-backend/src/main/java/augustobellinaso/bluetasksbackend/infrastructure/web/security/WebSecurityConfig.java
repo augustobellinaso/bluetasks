@@ -46,4 +46,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 
         logger.info("CORS setup... OK!");
     }
+
 }

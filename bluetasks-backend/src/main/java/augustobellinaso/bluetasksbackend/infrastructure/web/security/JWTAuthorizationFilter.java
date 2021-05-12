@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
@@ -27,6 +28,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         if (token != null && token.startsWith(SecurityConstants.TOKEN_PREFIX)) {
             UsernamePasswordAuthenticationToken authentication = getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
+        if (Objects.isNull(response.getHeader("Access-Control-Allow-Origin"))) {
+            response.addHeader("Access-Control-Allow-Origin", "*");
         }
 
         chain.doFilter(request, response);
