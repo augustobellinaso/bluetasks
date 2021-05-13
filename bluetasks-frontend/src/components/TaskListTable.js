@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router-dom";
 import AuthService from "../api/AuthService";
 import Spinner from "./Spinner";
-//import { Spinner } from "react-bootstrap";
+import Alert from "./Alert";
 
 class TaskListTable extends Component {
   constructor(props) {
@@ -14,7 +14,8 @@ class TaskListTable extends Component {
     this.state = {
       tasks: [],
       editId: 0,
-      loading: true,
+      loading: false,
+      alert: null,
     };
 
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
@@ -27,7 +28,22 @@ class TaskListTable extends Component {
   }
 
   listTasks() {
-    this.setState({ tasks: TaskService.list() });
+    if (!AuthService.isAuthenticated()) {
+      return;
+    }
+
+    this.setState({ loading: true });
+    TaskService.list(
+      (tasks) => this.setState({ tasks: tasks, loading: false }),
+      (error) => this.setErrorState(error)
+    );
+  }
+
+  setErrorState(error) {
+    this.setState({
+      alert: `Erro na requisição: ${error.message}`,
+      loading: false,
+    });
   }
 
   onDeleteHandler(id) {
@@ -61,6 +77,8 @@ class TaskListTable extends Component {
 
     return (
       <>
+        <h1>Lista de Tarefas</h1>
+        {this.state.alert != null ? <Alert message={this.state.alert} /> : ""}
         {this.state.loading ? (
           <Spinner />
         ) : (
