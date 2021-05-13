@@ -23,6 +23,7 @@ public class BluetasksBackendApplication implements RepositoryRestConfigurer {
 		logger.info("Bluetasks in action");
 	}
 
+
 	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
 		config.exposeIdsFor(Task.class);
@@ -32,6 +33,8 @@ public class BluetasksBackendApplication implements RepositoryRestConfigurer {
 
 		logger.info("Repository CORS setup...OK!");
 	}
+
+
 
 	@Bean
 	public Validator validator() {

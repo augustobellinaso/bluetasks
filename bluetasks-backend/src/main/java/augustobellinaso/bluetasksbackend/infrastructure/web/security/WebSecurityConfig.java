@@ -11,8 +11,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 @Configuration
-//@EnableWebSecurity
-//@EnableWebMvc
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
     private static Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
@@ -24,18 +22,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .disable()
                 .cors()
                 .and()
-                    .headers().frameOptions().disable()
+                .headers().frameOptions().disable()
                 .and()
-                    .httpBasic()
+                .httpBasic()
                 .and()
-                    .authorizeRequests()
-                        .antMatchers("/h2-console/**").permitAll()
-                        .anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/h2-console/**").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                    .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                    .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
         logger.info("Security setup... OK!");
@@ -50,18 +48,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 
         logger.info("CORS setup... OK!");
     }
-
-/*
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
-
-*/
-
 
 }
