@@ -18,8 +18,11 @@ class TaskService {
       .catch((error) => onError(error));
   }
 
-  load(id) {
-    return this.tasks.filter((t) => t.id === id)[0];
+  load(id, onLoad, onError) {
+    axios
+      .get(`${API_ENDPOINT}/tasks/${id}`, this.buildAuthHeader())
+      .then((response) => onLoad(response.data))
+      .catch((error) => onError(error));
   }
 
   delete(id, onDelete, onError) {
