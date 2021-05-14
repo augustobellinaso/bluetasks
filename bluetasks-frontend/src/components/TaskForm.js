@@ -19,6 +19,7 @@ class TaskForm extends Component {
       buttonName: "Cadastrar",
       alert: null,
       loading: false,
+      saving: false,
     };
 
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
@@ -52,15 +53,17 @@ class TaskForm extends Component {
     this.setState({
       alert: error,
       loading: false,
+      saving: false,
     });
   }
 
   onSubmitHandler(event) {
     event.preventDefault();
+    this.setState({ saving: true, alert: null });
 
     TaskService.save(
       this.state.task,
-      () => this.setState({ redirect: true }),
+      () => this.setState({ redirect: true, saving: false }),
       (error) => {
         if (error.response) {
           this.setErrorState(`Erro: ${error.response.data.error}`);
@@ -121,8 +124,20 @@ class TaskForm extends Component {
               onChange={this.onInputChangeHandler}
             />
           </div>
-          <button type="submit" className="btn btn-success mr-2">
-            {this.state.buttonName}
+          <button
+            type="submit"
+            className="btn btn-success mr-2"
+            disabled={this.state.saving}
+          >
+            {this.state.saving ? (
+              <span
+                className="spinner-border spinner-border-sm"
+                role="status"
+                aria-hidden="true"
+              ></span>
+            ) : (
+              this.state.buttonName
+            )}
           </button>
           <button
             type="button"
