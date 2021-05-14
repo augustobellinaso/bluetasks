@@ -32,13 +32,14 @@ class Login extends Component {
 
   handleLoginResponse(success) {
     if (success) {
-      this.setState({ loggedIn: true });
+      this.setState({ loggedIn: true, loading: false });
       this.props.onLoginSuccess();
     } else {
-      this.setState({ alert: "O login não pode ser realizado" });
+      this.setState({
+        alert: "O login não pode ser realizado",
+        processing: false,
+      });
     }
-
-    this.setState({ processing: false });
   }
 
   handleInputChanged(event) {
@@ -48,11 +49,7 @@ class Login extends Component {
   }
 
   render() {
-    if (AuthService.isAuthenticated()) {
-      return <Redirect to="/" />;
-    }
-
-    if (this.state.loggedIn) {
+    if (AuthService.isAuthenticated() || this.state.loggedIn) {
       return <Redirect to="/" />;
     }
 
