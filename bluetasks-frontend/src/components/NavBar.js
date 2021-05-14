@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AuthService from "../api/AuthService";
 import { APP_NAME } from "../constants";
 import NavBarItem from "./NavBarItem";
 
@@ -55,6 +56,13 @@ class NavBar extends Component {
                   onClick={this.onClickHandler}
                 />
               ))}
+              {AuthService.isAuthenticated() ? (
+                <NavBarItem
+                  item={{ name: "Logout", active: false, href: "#" }}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </nav>
