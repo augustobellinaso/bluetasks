@@ -29,6 +29,10 @@ class AuthService {
   isAuthenticated() {
     return this.getJWTToken() != null;
   }
+
+  logout() {
+    sessionStorage.removeItem(JWT_TOKEN_NAME);
+  }
 }
 
 export default new AuthService();
