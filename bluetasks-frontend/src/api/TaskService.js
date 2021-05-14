@@ -3,14 +3,6 @@ import axios from "axios";
 import { API_ENDPOINT } from "../constants";
 
 class TaskService {
-  constructor() {
-    this.tasks = [
-      { id: 1, description: "Tarefa 1", whenToDo: "2021-10-10", done: false },
-      { id: 2, description: "Tarefa 2", whenToDo: "2030-01-01", done: false },
-      { id: 3, description: "Tarefa 3", whenToDo: "2025-10-21", done: true },
-    ];
-  }
-
   list(onFetch, onError) {
     axios
       .get(`${API_ENDPOINT}/tasks?sort=whenToDo,asc`, this.buildAuthHeader())
@@ -32,13 +24,17 @@ class TaskService {
       .catch((error) => onError(error));
   }
 
-  save(task) {
-    if (task.id !== 0) {
-      this.tasks = this.tasks.map((t) => (task.id !== t.id ? t : task));
+  save(task, onSave, onError) {
+    if (task.id === 0) {
+      axios
+        .post(`${API_ENDPOINT}/tasks`, task, this.buildAuthHeader())
+        .then(() => onSave())
+        .catch((error) => onError(error));
     } else {
-      const taskId = Math.max(...this.tasks.map((t) => t.id)) + 1;
-      task.id = taskId;
-      this.tasks.push(task);
+      axios
+        .put(`${API_ENDPOINT}/tasks/${task.id}`, task, this.buildAuthHeader())
+        .then(() => onSave())
+        .catch((error) => onError(error));
     }
   }
 
