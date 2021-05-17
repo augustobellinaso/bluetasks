@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
         logger.info("Security setup... OK!");
     }
 
-
+/*
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -55,11 +55,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 
         logger.info("CORS setup... OK!");
     }
+    */
+
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
-        configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("POST", "OPTIONS", "GET"));
         configuration.setAllowedHeaders(Arrays.asList(SecurityConstants.AUTHORIZATION_HEADER));
         configuration.addExposedHeader(SecurityConstants.AUTHORIZATION_HEADER);
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
