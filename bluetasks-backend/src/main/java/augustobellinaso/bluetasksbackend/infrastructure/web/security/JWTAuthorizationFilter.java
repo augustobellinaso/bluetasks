@@ -31,11 +31,11 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
-        /*
+
         if (Objects.isNull(response.getHeader("Access-Control-Allow-Origin"))) {
             response.addHeader("Access-Control-Allow-Origin", "*");
         }
-*/
+
         chain.doFilter(request, response);
     }
 
