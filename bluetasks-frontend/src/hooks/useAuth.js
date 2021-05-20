@@ -1,6 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { AUTH_ENDPOINT, CREDENTIALS_NAME, JWT_TOKEN_NAME } from "../constants";
+
+export const AuthContext = createContext();
 
 export const useAuth = () => {
   const [credentials, setCredentials] = useState({
