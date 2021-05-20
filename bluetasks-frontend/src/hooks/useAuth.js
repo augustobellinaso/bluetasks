@@ -47,7 +47,7 @@ export const useAuth = () => {
   };
 
   const storeCredentials = (token) => {
-    const tokenData = atob(token.split(".")[1]);
+    const tokenData = JSON.parse(atob(token.split(".")[1]));
     const credentials = {
       username: tokenData.sub,
       displayName: tokenData.displayName,
