@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "./useAuth";
 
-export const useNavBarItens = () => {
+export const useNavBarItems = () => {
   const auth = useContext(AuthContext);
   const [items, setItems] = useState([]);
+  const [helloMessage, setHelloMessage] = useState(null);
 
   useEffect(() => {
     const activate = (clickedItem) => {
@@ -27,13 +28,19 @@ export const useNavBarItens = () => {
         name: "Logout",
         active: false,
         href: "#",
-        onClick: () => auth.logout(),
+        onClick: () => {
+          auth.logout();
+          setHelloMessage(null);
+        },
       });
+
+      setHelloMessage(`Olá, ${auth.credentials.displayName}!`);
     }
 
     setItems(items);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth.credentials]);
 
-  return { items };
+  return { items, helloMessage };
 };
