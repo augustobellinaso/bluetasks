@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Redirect } from "react-router-dom";
@@ -11,6 +11,7 @@ import { AuthContext } from "../hooks/useAuth";
 const TaskListTable = () => {
   const auth = useContext(AuthContext);
   const tasks = useTasks();
+  const [editId, setEditId] = useState(0);
 
   useEffect(() => {
     if (auth.credentials.username !== null) {
@@ -23,6 +24,10 @@ const TaskListTable = () => {
     if (window.confirm(`Deseja mesmo excluir a tarefa?`)) {
       tasks.remove(taskToDelete);
     }
+  };
+
+  const onEditHandler = (taskToEdit) => {
+    setEditId(taskToEdit.id);
   };
 
   const onStatusChangeHandler = (taskToUpdate) => {
@@ -54,6 +59,10 @@ const TaskListTable = () => {
 
   if (!auth.isAuthenticated()) {
     return <Redirect to="/login" />;
+  }
+
+  if (editId > 0) {
+    return <Redirect to={`/form/${editId}`} />;
   }
 
   return (
@@ -104,7 +113,7 @@ const TaskListTable = () => {
                       type="button"
                       className="btn btn-primary"
                       value="Editar"
-                      onClick={() => false}
+                      onClick={() => onEditHandler(task)}
                     />
                     &nbsp;
                     <input
