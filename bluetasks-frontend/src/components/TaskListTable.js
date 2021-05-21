@@ -25,6 +25,11 @@ const TaskListTable = () => {
     }
   };
 
+  const onStatusChangeHandler = (taskToUpdate) => {
+    taskToUpdate.done = !taskToUpdate.done;
+    tasks.save(taskToUpdate, true);
+  };
+
   useEffect(() => {
     if (tasks.taskRemoved !== null) {
       toast.success(`Tarefa ${tasks.taskRemoved.id} excluída!`, {
@@ -32,8 +37,20 @@ const TaskListTable = () => {
       });
       tasks.clearTaskRemoved();
     }
+
+    if (tasks.taskUpdated !== null) {
+      toast.success(
+        `Tarefa ${tasks.taskUpdated.id} foi marcada como ${
+          !tasks.taskUpdated.done ? "não" : ""
+        } concluída!`,
+        {
+          position: toast.POSITION.BOTTOM_LEFT,
+        }
+      );
+      tasks.clearTaskUpdated();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tasks.taskRemoved]);
+  }, [tasks.taskRemoved, tasks.taskUpdated]);
 
   if (!auth.isAuthenticated()) {
     return <Redirect to="/login" />;
@@ -67,7 +84,7 @@ const TaskListTable = () => {
                     <input
                       type="checkbox"
                       checked={task.done}
-                      onChange={() => false}
+                      onChange={() => onStatusChangeHandler(task)}
                     />
                   </td>
                   <td>

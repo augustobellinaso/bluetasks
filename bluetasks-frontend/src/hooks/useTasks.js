@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import { API_ENDPOINT } from "../constants";
 import { AuthContext } from "../hooks/useAuth";
 
@@ -9,6 +9,7 @@ export const useTasks = () => {
   const [error, setError] = useState(null);
   const [processing, setProcessing] = useState(false);
   const [taskRemoved, setTaskRemoved] = useState(null);
+  const [taskUpdated, setTaskUpdated] = useState(null);
 
   const list = async () => {
     try {
@@ -59,8 +60,39 @@ export const useTasks = () => {
     setProcessing(false);
   };
 
+  const save = async (taskToSave, onlyStatus = false) => {
+    try {
+      setProcessing(!onlyStatus);
+      setTaskUpdated(null);
+      setError(null);
+
+      if (taskToSave.id === 0) {
+        await axios.post(
+          `${API_ENDPOINT}/tasks`,
+          taskToSave,
+          buildAuthHeader()
+        );
+      } else {
+        await axios.put(
+          `${API_ENDPOINT}/tasks/${taskToSave.id}`,
+          taskToSave,
+          buildAuthHeader()
+        );
+      }
+
+      setProcessing(false);
+      setTaskUpdated(taskToSave);
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
   const clearTaskRemoved = () => {
     setTaskRemoved(null);
+  };
+
+  const clearTaskUpdated = () => {
+    setTaskUpdated(null);
   };
 
   return {
@@ -71,5 +103,8 @@ export const useTasks = () => {
     remove,
     taskRemoved,
     clearTaskRemoved,
+    save,
+    clearTaskUpdated,
+    taskUpdated,
   };
 };
