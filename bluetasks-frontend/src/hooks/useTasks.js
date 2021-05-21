@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { API_ENDPOINT } from "../constants";
 import { AuthContext } from "../hooks/useAuth";
 
-const useTasks = () => {
+export const useTasks = () => {
   const auth = useContext(AuthContext);
   const [taskList, setTaskList] = useState([]);
   const [error, setError] = useState(null);
