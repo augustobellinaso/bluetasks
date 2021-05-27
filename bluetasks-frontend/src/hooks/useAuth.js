@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
-import { AUTH_ENDPOINT, CREDENTIALS_NAME, JWT_TOKEN_NAME } from "../constants";
+import { AUTH_ENDPOINT, CREDENTIALS_NAME } from "../constants";
 
 export const AuthContext = createContext();
 
@@ -16,6 +16,7 @@ export const useAuth = () => {
 
   useEffect(() => {
     loadCredentials();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const login = async (username, password) => {
